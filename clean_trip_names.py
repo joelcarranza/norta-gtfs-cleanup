@@ -4,8 +4,11 @@ import re
 
 # This cleans up trip names and tries to regularize them as much as possible
 
-def normalize(value):
-  return value.strip()
+def normalize(name):
+  name = name.strip()
+  # remove duplicate spaces
+  name = re.sub(r'\s+',' ',name)
+  return name
 
 def process(trips):
   csvio.transform(trips,'trip_headsign',normalize)
