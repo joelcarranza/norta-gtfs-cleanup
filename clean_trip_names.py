@@ -23,20 +23,28 @@ def process(routes,trips):
   for r in routes:
     route_code_by_id[r['route_id']] = int(r['route_short_name'])
   sequences = dict()
+  idmap = dict()
   for trip in trips:
+    old_trip_id = trip['trip_id'] 
     route_code = route_code_by_id[trip['route_id']]
     key = "%s-%s" % (route_code,trip['direction_id'])
     if key in sequences:
       n = sequences[key]+1
     else:
       n = 1
-    trip['trip_id'] = "%s-%s" % (key,n)
+    new_trip_id = "%s-%s" % (key,n)
+    trip['trip_id'] = new_trip_id
     sequences[key] = n
-  return trips
+    idmap[old_trip_id] = new_trip_id
+  return idmap
 
 if __name__ == '__main__':
   datadir = sys.argv[1]
   routes = csvio.read('%s/routes.txt' % datadir)
   trips = csvio.read('%s/trips.txt' % datadir)
-  trips = process(routes,trips)
+  idmap = process(routes,trips)
   csvio.write('%s/trips.txt' % datadir,trips)
+  
+  stop_times = csvio.read('%s/stop_times.txt' % datadir)
+  csvio.recode(stop_times,'trip_id',idmap)
+  csvio.write('%s/stop_times.txt' % datadir,stop_times)

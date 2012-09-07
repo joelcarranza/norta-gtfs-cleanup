@@ -3,6 +3,13 @@ from itertools import izip
 
 # working with CSV files
 
+def recode(dataset,column,trans):
+  for row in dataset:
+    if column in row:
+      old_value = row[column]
+      new_value = trans[old_value]
+      row[column] = new_value
+
 def transform(dataset,column,func):
   for row in dataset:
     if column in row:
