@@ -3,15 +3,38 @@ import sys
 import re
 
 # This cleans up stop names and tries to regularize them as much as possible
+RULES = (
+# squeeze out any reference to space
+# N.Canal -> N Canal
+r'\.',' ',
+# now normalize spaces 
+r'\s+',' ',
+# remmove trailing parantheticals
+r'\(\w+\)$','',
+# spelling errors
+'Annunciation','Annunication',
+'Behman','Behrman',
+'Carondolet','Carondelet',
+'Derbingy','Derbigny',
+'Downmam','Downman',
+'Dumanie','Dumaine',
+'Elks Place','Elk Place',
+'Esplanande','Esplanade',
+'Esplande','Esplanade',
+'Lonely Oaks','Lonely Oak',
+'Majestic Oak','Majestic Oaks',
+'Newcastle','New Castle',
+'Opeloousas','Opelousas',
+'Preiur','Prieur',
+'Wiliams','Williams',
+'First','1st'
+)
 
 def normalize(name):
   name = name.strip()
-  # remove duplicate spaces
-  name = re.sub(r'\s+',' ',name)
-  # Some stops end with strange stuff in parens
-  # Ex: (In),(Out),(Nearside),(Farside) 
-  # just remove
-  name = re.sub(r'\(\w+\)$','',name)
+  for i in xrange(0,len(RULES),2):
+    name = re.sub(RULES[i],RULES[i+1],name)
+  print name
   return name
 
 def process(stops):
