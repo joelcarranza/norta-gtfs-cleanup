@@ -27,14 +27,14 @@ r'\(\w+\)$','',
 'Opeloousas','Opelousas',
 'Preiur','Prieur',
 'Wiliams','Williams',
-'First','1st'
+'First','1st',
+'Loyola/Tulane','Tulane/Loyola'
 )
 
 def normalize(name):
   name = name.strip()
   for i in xrange(0,len(RULES),2):
     name = re.sub(RULES[i],RULES[i+1],name)
-  print name
   return name
 
 def process(stops):
