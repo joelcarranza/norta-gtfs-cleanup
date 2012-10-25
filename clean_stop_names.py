@@ -10,7 +10,10 @@ r'\.',' ',
 # now normalize spaces 
 r'\s+',' ',
 # remmove trailing parantheticals
-r'\(\w+\)$',''
+r'\(\w+\)$','',
+# trim again in case above rules introduced trailing and leading whitespace
+r'\s+$','',
+r'^\s+','',
 )
 
 SPELLING = (
@@ -39,6 +42,7 @@ SPELLING = (
 )
 
 REMAP = (
+"Napoleon at St Charles Ave","Napoleon at St Charles",
 "Paris Ave at Aviator","Paris Ave at Aviators",
 "Downman at Fillmore","Downman at Filmore",
 "Monroe at Mark","Monroe at Marks",
