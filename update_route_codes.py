@@ -32,6 +32,10 @@ def process(routes):
       route['route_short_name'] = '2'
       route['route_long_name'] = 'Riverfront'
       continue
+    if short_name == 'Loyola-UPT':
+      route['route_short_name'] = '49'
+      route['route_long_name'] = 'Loyola-UPT'
+      continue
   return routes
 
 if __name__ == '__main__':
