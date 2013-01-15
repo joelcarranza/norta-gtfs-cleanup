@@ -10,9 +10,11 @@ def process(routes):
   csvio.transform(routes,'route_long_name',normalize)
   for route in routes:
     short_name = route['route_short_name']
-    if re.match(r'^\d+$',short_name):
-      continue
     long_name = route['route_long_name']
+    if re.match(r'^\d+$',short_name):
+      if short_name == '12' and long_name.endswith("Shuttle"):
+        route['route_type'] = '3'
+      continue
     if long_name:
       m = re.search(r'^([^-]+)\s*-\s*(\d+)$',long_name)
       if m:
@@ -20,11 +22,6 @@ def process(routes):
         route['route_long_name'] = m.group(1)
         continue
     if short_name == 'St. Charles':
-      if long_name == 'Shuttle':
-        route['route_short_name'] = '13'
-        route['route_long_name'] = 'St. Charles Shuttle'
-        continue
-      else:
         route['route_short_name'] = '12'
         route['route_long_name'] = 'St. Charles'
         continue
