@@ -1,3 +1,4 @@
+set -e
 TARGET=gtfs-out
 
 if [ -z "$1" ]
