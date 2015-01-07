@@ -10,7 +10,7 @@ fi
 INFILE=$1
 OUTFILE=${1%.zip}.clean.zip
 rm -rf $TARGET
-unzip -o $INFILE -d $TARGET
+unzip -o "$INFILE" -d $TARGET
 
 python update_route_codes.py $TARGET
 python clean_trip_names.py $TARGET
