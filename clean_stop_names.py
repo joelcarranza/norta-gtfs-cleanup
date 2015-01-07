@@ -82,8 +82,19 @@ def normalize(name):
       name = REMAP[i+1]
   return name
 
+def strip_stop_code_prefix(stop_code):
+  """
+  Starting with 2014/06/01 release the stop codes are prefixed with a single
+  letter charachter (N) which can safely be removed
+  """
+  if stop_code.startswith("N"):
+    return stop_code[1:]
+  else:
+    return stop_code
+
 def process(stops):
   csvio.transform(stops,'stop_name',normalize)
+  csvio.transform(stops,'stop_code',strip_stop_code_prefix)  
   return stops
 
 if __name__ == '__main__':
