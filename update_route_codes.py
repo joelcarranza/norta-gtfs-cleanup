@@ -28,6 +28,13 @@ def process(routes):
     if short_name == '48 City Park':
         route['route_short_name'] = '48'
         continue
+    if short_name == '12B St. Charles':
+        route['route_short_name'] = '12'
+        continue
+    if short_name == 'F': # algiers point ferry
+        # give this a synthetic short name just so everything works
+        route['route_short_name'] = '1001'
+        continue
     if re.match(r'(12\s+)?St. Charles',short_name):
         route['route_short_name'] = '12'
         if not long_name:
